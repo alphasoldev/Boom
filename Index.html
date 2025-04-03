@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$BOOM - Here Comes the Boom</title>
+  <style>
+    :root {
+      --primary: #ff4500;
+      --secondary: #ffd700;
+      --dark: #121212;
+      --light: #f5f5f5;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', monospace;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    
+    .boom-title {
+      font-size: 8rem;
+      font-weight: bold;
+      margin: 0;
+      animation: pulsate 2s infinite;
+      text-shadow: 0 0 15px var(--secondary);
+    }
+    
+    .ticker {
+      font-size: 4rem;
+      margin: 10px 0;
+      color: var(--secondary);
+      animation: flicker 3s infinite;
+    }
+    
+    .tagline {
+      font-size: 1.8rem;
+      margin: 20px 0;
+      animation: slide-in 1s ease-out;
+    }
+    
+    .cta-btn {
+      background-color: var(--primary);
+      color: var(--light);
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: bounce 2s infinite;
+    }
+    
+    .cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--primary);
+    }
+    
+    .section {
+      padding: 80px 0;
+      text-align: center;
+    }
+    
+    .section-title {
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+      color: var(--secondary);
+      animation: typing 3.5s steps(40, end);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    
+    .feature-item {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      width: 60%;
+      max-width: 600px;
+      margin: 20px auto;
+      animation: fade-in 1s ease-in;
+    }
+    
+    .feature-title {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+    
+    footer {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px 0;
+      text-align: center;
+    }
+    
+    /* Animations */
+    @keyframes pulsate {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); text-shadow: 0 0 20px var(--secondary); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes flicker {
+      0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px var(--secondary);
+      }
+      20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+        opacity: 0.4;
+        text-shadow: none;
+      }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes slide-in {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Explosion effects */
+    .explosion {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .explosion-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--primary), transparent);
+      animation: explode 3s infinite;
+      opacity: 0;
+    }
+    
+    @keyframes explode {
+      0% { transform: scale(0); opacity: 0.8; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+    
+    /* Movie-style countdown effect */
+    .countdown {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      font-size: 7rem;
+      color: white;
+      animation: countdown 5s forwards;
+    }
+    
+    @keyframes countdown {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+    
+    /* Action movie text effect */
+    .movie-subtitle {
+      font-size: 2rem;
+      margin: 40px 0;
+      animation: shake 2s infinite;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    /* Boom effect */
+    .boom-effect {
+      position: relative;
+      display: inline-block;
+      font-size: 6rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-transform: uppercase;
+      animation: boom-text 4s infinite;
+      margin: 40px 0;
+    }
+    
+    @keyframes boom-text {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); color: var(--secondary); }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .boom-title {
+        font-size: 4rem;
+      }
+      
+      .ticker {
+        font-size: 2.5rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .boom-effect {
+        font-size: 3rem;
+      }
+      
+      .movie-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .feature-item {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Movie countdown intro -->
+  <div class="countdown" id="countdown">5</div>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="explosion" id="explosion"></div>
+    <h1 class="boom-title">HERE COMES THE BOOM</h1>
+    <p class="ticker">$BOOM</p>
+    <p class="tagline">The only memecoin with EXPLOSIVE gains!</p>
+    <div>
+      <button class="cta-btn">Get $BOOM</button>
+    </div>
+  </section>
+  
+  <!-- Boom Effect -->
+  <div style="text-align: center;">
+    <div class="boom-effect">BOOM!</div>
+    <p class="movie-subtitle">This summer, crypto will never be the same</p>
+  </div>
+  
+  <!-- Single Feature Section -->
+  <section class="section container">
+    <div class="feature-item">
+      <h3 class="feature-title">PREPARE FOR LIFTOFF</h3>
+      <p>$BOOM isn't just a memecoin. It's an action blockbuster for your wallet.</p>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>$BOOM | Powered by Solana | Launched by pumpfun</p>
+    </div>
+  </footer>
+  
+  <script>
+    // Countdown effect
+    const countdown = document.getElementById('countdown');
+    let count = 5;
+    
+    const countInterval = setInterval(() => {
+      count--;
+      countdown.textContent = count;
+      
+      if (count <= 0) {
+        clearInterval(countInterval);
+      }
+    }, 1000);
+    
+    // Create explosion effects
+    const explosion = document.getElementById('explosion');
+    
+    function createExplosions() {
+      const circle = document.createElement('div');
+      circle.classList.add('explosion-circle');
+      
+      // Random position
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      
+      // Random size
+      const size = Math.random() * 100 + 50;
+      
+      // Random delay
+      const delay = Math.random() * 2;
+      
+      circle.style.left = `${x}%`;
+      circle.style.top = `${y}%`;
+      circle.style.width = `${size}px`;
+      circle.style.height = `${size}px`;
+      circle.style.animationDelay = `${delay}s`;
+      
+      explosion.appendChild(circle);
+      
+      // Remove after animation
+      setTimeout(() => {
+        circle.remove();
+      }, 3000);
+    }
+    
+    // Create explosions regularly
+    setInterval(createExplosions, 500);
+    
+    // Create initial batch of explosions
+    for (let i = 0; i < 10; i++) {
+      createExplosions();
+    }
+  </script>
+</body>
+</html>
